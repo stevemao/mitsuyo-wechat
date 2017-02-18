@@ -1,6 +1,8 @@
 import 'babel-polyfill'
 import {Wechaty, Room} from 'wechaty'
+import apiai from 'apiai'
 
+const app = apiai("5af28f3bc4774737a5b127cd7f5a1d4f");
 const bot = Wechaty.instance()
 
 bot
@@ -36,7 +38,22 @@ bot
         console.log(`Contact: ${contact.name()} Content: ${content}`)
     }
 
-    m.say("hello how are you")
+    var request = app.textRequest(content, {
+        sessionId: '1234567890'
+    });
+
+    request.on('response', function(response) {
+        const speech = response.result.fulfillment.speech
+        console.log(speech);
+
+        m.say(speech)
+    });
+
+    request.on('error', function(error) {
+        console.log(error);
+    });
+
+    request.end();
 
     if(/room/.test(content)){
         let keyroom = await Room.find({topic: "test"})

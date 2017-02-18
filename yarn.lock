@@ -50,6 +50,10 @@ anymatch@^1.3.0:
     arrify "^1.0.0"
     micromatch "^2.1.5"
 
+apiai@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/apiai/-/apiai-4.0.0.tgz#59c1f327bff2e0b546e389ae32203da253224d51"
+
 aproba@^1.0.3:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/aproba/-/aproba-1.1.1.tgz#95d3600f07710aa0e9298c726ad5ecf2eacbabab"
