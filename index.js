@@ -24,6 +24,7 @@ bot
 })
 
 .on('message', async function(m){
+    let skipSpeech;
     const contact = m.from()
     const content = m.content()
     const room = m.room()
@@ -32,26 +33,33 @@ bot
         return
     }
 
-    if(room){
-        console.log(`Room: ${room.topic()} Contact: ${contact.name()} Content: ${content}`)
-    } else{
-        console.log(`Contact: ${contact.name()} Content: ${content}`)
-    }
-
-    var request = app.textRequest(content, {
+    const request = app.textRequest(content, {
         sessionId: '1234567890'
-    });
-
-    request.on('response', function(response) {
-        const speech = response.result.fulfillment.speech
-        console.log(speech);
-
-        m.say(speech)
     });
 
     request.on('error', function(error) {
         console.log(error);
     });
+
+    if(room){
+        console.log(`Room: ${room.topic()} Contact: ${contact.name()} Content: ${content}`)
+        if (/mitsuyo/i.test(content)) {
+            console.log('Someone mentioned me in a room...')
+        } else {
+            skipSpeech = true
+        }
+    } else{
+        console.log(`Contact: ${contact.name()} Content: ${content}`)
+    }
+
+    if (!skipSpeech) {
+      request.on('response', function(response) {
+          const speech = response.result.fulfillment.speech
+          console.log(speech);
+
+          m.say(speech)
+      });
+    }
 
     request.end();
 

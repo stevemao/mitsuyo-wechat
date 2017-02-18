@@ -7,7 +7,7 @@
   "author": "Steve Mao <maochenyan@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "node dist",
+    "start": "npm run build && node dist",
     "build": "babel index.js -d dist",
     "dev": "babel index.js --watch -d dist"
   },
