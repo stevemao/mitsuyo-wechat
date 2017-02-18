@@ -26,19 +26,17 @@ bot
     const content = m.content()
     const room = m.room()
 
+    if(m.self()){
+        return
+    }
+
     if(room){
         console.log(`Room: ${room.topic()} Contact: ${contact.name()} Content: ${content}`)
     } else{
         console.log(`Contact: ${contact.name()} Content: ${content}`)
     }
 
-    if(m.self()){
-        return
-    }
-
-    if(/hello/.test(content)){
-        m.say("hello how are you")
-    }
+    m.say("hello how are you")
 
     if(/room/.test(content)){
         let keyroom = await Room.find({topic: "test"})

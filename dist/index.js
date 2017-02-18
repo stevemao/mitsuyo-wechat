@@ -54,6 +54,14 @@ bot.on('scan', function (url, code) {
                         content = m.content();
                         room = m.room();
 
+                        if (!m.self()) {
+                            _context2.next = 5;
+                            break;
+                        }
+
+                        return _context2.abrupt('return');
+
+                    case 5:
 
                         if (room) {
                             console.log('Room: ' + room.topic() + ' Contact: ' + contact.name() + ' Content: ' + content);
@@ -61,18 +69,7 @@ bot.on('scan', function (url, code) {
                             console.log('Contact: ' + contact.name() + ' Content: ' + content);
                         }
 
-                        if (!m.self()) {
-                            _context2.next = 6;
-                            break;
-                        }
-
-                        return _context2.abrupt('return');
-
-                    case 6:
-
-                        if (/hello/.test(content)) {
-                            m.say("hello how are you");
-                        }
+                        m.say("hello how are you");
 
                         if (!/room/.test(content)) {
                             _context2.next = 16;
