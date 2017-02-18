@@ -1,3 +1,4 @@
+import 'babel-polyfill'
 import {Wechaty, Room} from 'wechaty'
 import qrcode from 'qrcode-terminal'
 

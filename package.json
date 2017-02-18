@@ -2,21 +2,24 @@
   "name": "mitsuyo",
   "version": "0.0.0",
   "description": "Japanese chatbot",
-  "main": "index.js",
+  "files": "dist",
   "repository": "git@github.com:stevemao/mitsuyo.git",
   "author": "Steve Mao <maochenyan@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "babel-node index"
+    "start": "node dist",
+    "precommit": "babel index.js -d dist"
   },
   "dependencies": {
+    "babel-polyfill": "^6.23.0",
     "qrcode-terminal": "^0.11.0",
     "wechaty": "^0.7.17"
   },
   "devDependencies": {
     "babel-cli": "^6.23.0",
     "babel-preset-latest": "^6.22.0",
-    "babel-preset-stage-0": "^6.22.0"
+    "babel-preset-stage-0": "^6.22.0",
+    "husky": "^0.13.1"
   },
   "private": true
 }
