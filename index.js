@@ -34,6 +34,10 @@ bot
         return
     }
 
+    if (/请先发送朋友验证请求/i.test(content)) {
+        return
+    }
+
     const request = app.textRequest(content, {
         sessionId: '1234567890'
     });
@@ -64,18 +68,18 @@ bot
 
     request.end();
 
-    if(/room/.test(content)){
+    if(/ルーム|グループ/.test(content)){
         let keyroom = await Room.find({topic: "test"})
         if(keyroom){
             await keyroom.add(contact)
-            await keyroom.say("welcome!", contact)
+            await keyroom.say("ようこそ!", contact)
         }
     }
 
-    if(/out/.test(content)){
+    if(/でる|終了する/.test(content)){
         let keyroom = await Room.find({topic: "test"})
         if(keyroom){
-            await keyroom.say("Remove from the room", contact)
+            await keyroom.say("グループから連絡先を削除する: ", contact)
             await keyroom.del(contact)
         }
     }
