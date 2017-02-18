@@ -8,7 +8,7 @@
   "license": "MIT",
   "scripts": {
     "start": "node dist",
-    "precommit": "babel index.js -d dist"
+    "precommit": "babel index.js -d dist && git add dist"
   },
   "dependencies": {
     "babel-polyfill": "^6.23.0",

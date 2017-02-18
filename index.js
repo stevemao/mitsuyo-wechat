@@ -1,13 +1,12 @@
 import 'babel-polyfill'
 import {Wechaty, Room} from 'wechaty'
-import qrcode from 'qrcode-terminal'
 
 const bot = Wechaty.instance()
 
 bot
 .on('scan', (url, code)=>{
     let loginUrl = url.replace('qrcode', 'l')
-    qrcode.generate(loginUrl)
+    require('qrcode-terminal').generate(loginUrl)
     console.log(url)
 })
 
