@@ -1,6 +1,7 @@
 import 'babel-polyfill'
 import {Wechaty, Room} from 'wechaty'
 import apiai from 'apiai'
+import chalk from 'chalk'
 
 const app = apiai("5af28f3bc4774737a5b127cd7f5a1d4f");
 const bot = Wechaty.instance()
@@ -38,7 +39,7 @@ bot
     });
 
     request.on('error', function(error) {
-        console.log(error);
+        console.log(chalk.red(error));
     });
 
     if(room){
@@ -55,7 +56,7 @@ bot
     if (!skipSpeech) {
       request.on('response', function(response) {
           const speech = response.result.fulfillment.speech
-          console.log(speech);
+          console.log(chalk.green(speech));
 
           m.say(speech)
       });
