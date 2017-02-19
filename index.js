@@ -38,7 +38,8 @@ bot
         return
     }
 
-    const request = app.textRequest(content, {
+    // @ mention doesn't count in the text!
+    const request = app.textRequest(content.replace(/@\w+/ig, ''), {
         sessionId: '1234567890'
     });
 
@@ -49,7 +50,7 @@ bot
     if(room){
         console.log(`Room: ${room.topic()} Contact: ${contact.name()} Content: ${content}`)
         if (/mitsuyo/i.test(content)) {
-            console.log('Someone mentioned me in a room...')
+            console.log('Someone mentioned me in the room...')
         } else {
             skipSpeech = true
         }
