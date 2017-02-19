@@ -1895,6 +1895,16 @@ qs@~6.3.0:
   version "6.3.1"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.3.1.tgz#918c0b3bcd36679772baf135b1acb4c1651ed79d"
 
+random-item-in-array@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/random-item-in-array/-/random-item-in-array-1.0.0.tgz#57e92cf49fcdc32d48d34d727749880c3d2ef679"
+  dependencies:
+    random-number-in-range "^1.0.0"
+
+random-number-in-range@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/random-number-in-range/-/random-number-in-range-1.0.0.tgz#1c2730050a009805412b2c3ad76f2e0b49f7ea6d"
+
 randomatic@^1.1.3:
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/randomatic/-/randomatic-1.1.6.tgz#110dcabff397e9dcff7c0789ccc0a49adf1ec5bb"
