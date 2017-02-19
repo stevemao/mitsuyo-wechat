@@ -66,8 +66,10 @@ bot
 
     if(room){
         console.log(`Room: ${room.topic()} Contact: ${contact.name()} Content: ${content}`)
-        if (/mitsuyo|美鶴代|美鹤代/i.test(content)) {
+        if (/mitsuyo|美鶴代|美鹤代|日本|妹子/i.test(content)) {
             console.log('Someone mentioned me in the room...')
+        } else if (/mitsuyo|美鶴代|美鹤代/.test(room.topic())) {
+            console.log('My room...')
         } else {
             skipSpeech = true
         }
