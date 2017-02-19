@@ -77,7 +77,27 @@ bot
         console.log(`Contact: ${contact.name()} Content: ${content}`)
     }
 
+    if (skipSpeech) {
+        return
+    }
+
     const noAtMention = content.replace(/@\w+/ig, '')
+
+    if(/ルーム|グループ/.test(content)){
+        let keyroom = await Room.find({topic: "test"})
+        if(keyroom){
+            await keyroom.add(contact)
+            await keyroom.say("ようこそ!", contact)
+        }
+    }
+
+    if(/でる|終了する/.test(content)){
+        let keyroom = await Room.find({topic: "test"})
+        if(keyroom){
+            await keyroom.say("グループから連絡先を削除する: ", contact)
+            await keyroom.del(contact)
+        }
+    }
 
     // @ mention doesn't count in the text!
     const request = app.textRequest(noAtMention, {
@@ -95,32 +115,14 @@ bot
         }
     });
 
-    if (!skipSpeech) {
-      request.on('response', function(response) {
-          const speech = response.result.fulfillment.speech
-          console.log(chalk.green(speech));
+    request.on('response', function(response) {
+        const speech = response.result.fulfillment.speech
+        console.log(chalk.green(speech));
 
-          m.say(speech)
-      });
-    }
+        m.say(speech)
+    });
 
     request.end();
-
-    if(/ルーム|グループ/.test(content)){
-        let keyroom = await Room.find({topic: "test"})
-        if(keyroom){
-            await keyroom.add(contact)
-            await keyroom.say("ようこそ!", contact)
-        }
-    }
-
-    if(/でる|終了する/.test(content)){
-        let keyroom = await Room.find({topic: "test"})
-        if(keyroom){
-            await keyroom.say("グループから連絡先を削除する: ", contact)
-            await keyroom.del(contact)
-        }
-    }
 })
 
 .init()
