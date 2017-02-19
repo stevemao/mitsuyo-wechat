@@ -85,10 +85,12 @@ bot
     request.on('error', function(error) {
         console.log(chalk.red(error));
 
-        console.log('Fallback to default response...');
-        const doNotUnderstand = randomItemInArray(defaults)
-        console.log(chalk.yellow(doNotUnderstand))
-        m.say(doNotUnderstand)
+        if (!skipSpeech) {
+          console.log('Fallback to default response...');
+          const doNotUnderstand = randomItemInArray(defaults)
+          console.log(chalk.yellow(doNotUnderstand))
+          m.say(doNotUnderstand)
+        }
     });
 
     if (!skipSpeech) {
