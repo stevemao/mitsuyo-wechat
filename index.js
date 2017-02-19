@@ -6,6 +6,16 @@ import chalk from 'chalk'
 const app = apiai("5af28f3bc4774737a5b127cd7f5a1d4f");
 const bot = Wechaty.instance()
 
+const defaults = [
+  'ちょっと分かりませんでした。',
+  '今、なんておっしゃいましたか？',
+  'What the fuck are you saying?',
+  'あなたは何を言っているの？',
+  '你在说他妈的什么？',
+  '说啥鸡巴玩意儿',
+  '干蛋呢？'
+]
+
 bot
 .on('scan', (url, code)=>{
     let loginUrl = url.replace('qrcode', 'l')
@@ -36,6 +46,10 @@ bot
 
     if (/请先发送朋友验证请求|view it on mobile]/i.test(content)) {
         return
+    }
+
+    if (!content.trim()) {
+        m.say(defaults[Math.floor(Math.random() * defaults.length)])
     }
 
     // @ mention doesn't count in the text!
