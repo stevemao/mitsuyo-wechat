@@ -34,7 +34,7 @@ bot
         return
     }
 
-    if (/请先发送朋友验证请求/i.test(content)) {
+    if (/请先发送朋友验证请求|view it on mobile]/i.test(content)) {
         return
     }
 
