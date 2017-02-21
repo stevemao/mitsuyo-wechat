@@ -36,6 +36,11 @@ const greetings = [
   '你看起来有点色。。。我有点怕',
 ]
 
+function say(m, speech) {
+  m.say(speech)
+  console.log(chalk.green(speech));
+}
+
 bot
 .on('scan', (url, code)=>{
     let loginUrl = url.replace('qrcode', 'l')
@@ -65,20 +70,36 @@ bot
     }
 
     if (/请先发送朋友验证请求|view it on mobile]/i.test(content)) {
+        console.log(`${contact.name()} unfriended me`)
         return
     }
 
-    if (/分享的二维码加入群聊|现在可以开始聊天了。/i.test(content)) {
-        m.say(randomItemInArray(greetings))
+    if (/分享的二维码加入群聊/i.test(content)) {
+        console.log(`${contact.name()} just joined room: ${room.topic()}`)
+        say(m, randomItemInArray(greetings))
         return
+    }
+
+    if (/现在可以开始聊天了。/i.test(content)) {
+        console.log(`${contact.name()} just added me`)
+        say(m, randomItemInArray(greetings))
+        return
+    }
+
+    if (/邀请你加入了群聊/i.test(content)) {
+      console.log(`I'm invited to room: ${room.topic()}`)
+      say(m, '大家好，我是美鶴代， 乖巧的日本小女子')
+      say(m, '我要和大家聊天，嘻嘻！')
+      say(m, 'ありがとう')
+      return
     }
 
     if(room){
         console.log(`Room: ${room.topic()} Contact: ${contact.name()} Content: ${content}`)
         if (/mitsuyo|美鶴代|美鹤代|日本|妹子/i.test(content)) {
-            console.log('Someone mentioned me in the room...')
+            console.log(`I'm mentioned in the room: ${room.topic()}...`)
         } else if (/mitsuyo|美鶴代|美鹤代/.test(room.topic())) {
-            console.log('My room...')
+            console.log(`My room: ${room.topic()}...`)
         } else {
             skipSpeech = true
         }
@@ -117,18 +138,16 @@ bot
         console.log(chalk.red(error));
 
         if (!skipSpeech) {
-          console.log('Fallback to default response...');
+          console.log(chalk.yellow('Fallback to default response...'));
           const doNotUnderstand = randomItemInArray(defaults)
-          console.log(chalk.yellow(doNotUnderstand))
-          m.say(doNotUnderstand)
+          say(m, doNotUnderstand)
         }
     });
 
     request.on('response', function(response) {
         const speech = response.result.fulfillment.speech
-        console.log(chalk.green(speech));
 
-        m.say(speech)
+        say(m, speech)
     });
 
     request.end();
