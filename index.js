@@ -69,8 +69,15 @@ bot
         return
     }
 
-    if (/请先发送朋友验证请求|view it on mobile]/i.test(content)) {
+    if (/请先发送朋友验证请求/i.test(content)) {
         console.log(`${contact.name()} unfriended me`)
+        return
+    }
+
+    if (/view it on mobile]/i.test(content)) {
+        console.log(`Contact: ${contact.name()} Content: ${content}`)
+        const doNotUnderstand = randomItemInArray(defaults)
+        say(m, doNotUnderstand)
         return
     }
 
