@@ -87,7 +87,7 @@ bot
         return
     }
 
-    if (/现在可以开始聊天了。/i.test(content)) {
+    if (/现在可以开始聊天了/i.test(content)) {
         console.log(`${contact.name()} just added me`)
         say(m, randomItemInArray(greetings))
         return
@@ -98,6 +98,11 @@ bot
       say(m, '大家好，我是美鶴代， 乖巧的日本小女子')
       say(m, '我要和大家聊天，嘻嘻！')
       say(m, 'ありがとう')
+      return
+    }
+
+    if (/与群里其他人都不是微信朋友关系，请注意隐私安全/i.test(content)) {
+      say(m, `欢迎新人 ${contact.name()}`)
       return
     }
 
